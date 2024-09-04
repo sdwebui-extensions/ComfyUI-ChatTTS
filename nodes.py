@@ -15,7 +15,9 @@ LangSegment.setfilters(["zh", "ja", "en"])
 
 out_path = folder_paths.get_output_directory()
 now_dir = os.path.dirname(os.path.abspath(__file__))
-model_path = os.path.join(now_dir,"pretrained_models")
+model_path = os.path.join(folder_paths.models_dir,"ChatTTS")
+if os.path.exists(folder_paths.cache_dir):
+    model_path = os.path.join(folder_paths.cache_dir,"ChatTTS")
 splits = {"，", "。", "？", "！", ",", ".", "?", "!", "~", ":", "：", "—", "…", }
 
 class ChatTTS:

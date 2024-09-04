@@ -1,5 +1,6 @@
 import site
 import os
+import folder_paths
 
 now_dir = os.path.dirname(os.path.abspath(__file__))
 site_packages_roots = []
@@ -23,13 +24,6 @@ for site_packages_root in site_packages_roots:
 if os.path.isfile("%s/ChatTTS.pth" % (site_packages_root)):
     print("!!!ChatTTS path was added to " + "%s/ChatTTS.pth" % (site_packages_root) 
     + "\n if meet `No module` error,try `python main.py` again")
-
-from huggingface_hub import snapshot_download
-model_path = os.path.join(now_dir,"pretrained_models")
-if not os.path.isfile(os.path.join(model_path,"asset","GPT.pt")):
-    snapshot_download(repo_id="2Noise/ChatTTS",local_dir=model_path)
-else:
-    print("ChatTTS use cache models,make sure your 'pretrained_models' complete")
 
 
 WEB_DIRECTORY = "./web"
