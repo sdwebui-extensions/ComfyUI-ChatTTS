@@ -3,15 +3,6 @@ import torch
 import time
 import folder_paths
 import numpy as np
-from ChatTTS import Chat
-from pydub import AudioSegment
-from LangSegment import LangSegment
-from zh_normalization import text_normalize
-from scipy.io.wavfile import write as wavwrite
-from audiotsm import phasevocoder
-from audiotsm.io.wav import WavReader, WavWriter
-
-LangSegment.setfilters(["zh", "ja", "en"])
 
 out_path = folder_paths.get_output_directory()
 now_dir = os.path.dirname(os.path.abspath(__file__))
@@ -88,6 +79,11 @@ class ChatTTS:
 
     def tts(self, text,prompt,speed,seed,top_P,top_K,temperature,refine_temperature,
             repetition_penalty,use_decoder):
+        from audiotsm.io.wav import WavReader, WavWriter
+        from audiotsm import phasevocoder
+        from scipy.io.wavfile import write as wavwrite
+        from pydub import AudioSegment
+        from ChatTTS import Chat
         
         # torch.set_float32_matmul_precision('high')
         if not self.chat:
@@ -159,6 +155,10 @@ class ChatTTS:
         return (res_path,)
     
     def text_list_normalize(self,texts):
+        from zh_normalization import text_normalize
+        from LangSegment import LangSegment
+        LangSegment.setfilters(["zh", "ja", "en"])
+
         text_list = []
         for text in texts:
             for tmp in LangSegment.getTexts(text):
